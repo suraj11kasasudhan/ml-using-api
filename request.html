@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="./request.css">
+
+<script type="text/javascript" language="javascript">
+
+    function send()
+    {
+        var ex=parseInt(document.getElementById("ex").value);
+        var s1=parseInt(document.getElementById("score").value);
+        var s2=parseInt(document.getElementById("score2").value);
+        const body =  {'experience':ex, 'test_score':s1, 'interview_score':s2};
+ 
+        fetch(' https://ml-model-salary.herokuapp.com/predict_api',
+        { 
+        method: 'post',
+        body:    JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json' },
+  
+        }).then(res => res.json()).then(function(json)
+        {  
+            
+            document.getElementById("div").innerHTML="Predicted Salary should be $ "+ json;
+        }) ;
+    }
+  
+    </script>
+
+  
+</head>
+
+<body>
+ <div class="login">
+    <h1>Predict Salary Analysis</h1>
+     <!-- Main Input For Receiving Query to our ML -->
+     
+    	<input type="text" id="ex" name="experience" placeholder="Experience" required="required" />
+        <input type="text" id="score" name="test_score" placeholder="Test Score" required="required" />
+		<input type="text" id="score2" name="interview_score" placeholder="Interview Score" required="required" />
+
+        <button onclick="javascript:send()" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+   <br>
+   <br>
+   <div id='div'></div>
+
+ </div>
+
+
+</body>
+</html>
+
+ 
+ 
+    
+    
+   
+    
+     
